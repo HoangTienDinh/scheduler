@@ -4,7 +4,7 @@ import DayListItem from "./DayListItem"
 // const classNames =require('classnames');
 
 export default function DayList(props) {
-    console.log('hello', props.days)
+    console.log('hello', props)
     return (
       <ul>
         {
