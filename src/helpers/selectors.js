@@ -2,9 +2,6 @@ export function getAppointmentsForDay(state, day) {
   let appointmentArray = [];
   let result = [];
 
-
-  // console.log('the appointment result:', state, day)
-
   for (const dayName of state.days) {
     if (dayName.name === day) {
       dayName.appointments.forEach(appointment => appointmentArray.push(appointment))
@@ -21,7 +18,6 @@ export function getAppointmentsForDay(state, day) {
   return result;
 }
 
-
 export function getInterview(state, interview) {
   let finalObj = {}
 
@@ -35,7 +31,7 @@ export function getInterview(state, interview) {
     for (const id in state.interviewers) {
       if (interview.interviewer === Number(id)) {
         let interviewer = state.interviewers[id]
-        
+
         finalObj = { student, interviewer }
 
         console.log('the finalObj:', finalObj)
