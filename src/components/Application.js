@@ -19,7 +19,14 @@ export default function Application(props) {
   // const setDays = days => setState(prev => ({ ...prev, days }));
   // const setAppointments = appointments => setState(prev => ({ ...prev, appointments}));
 
-  // useEffect(() => {
+  // If we were to set individual states for the object, declaring the variables on line 19/20, then adding the below into the promise.all
+  // setDays(days);
+  // setAppointments(appointments);
+  // setInterviewers(interviewers);
+
+
+  //Original code for a single axios call, but needed to make multiple calls, so a promise refactored it all
+  // useEffect(() => {  
   //   axios.get("/api/days")
   //   .then((response) => {
   //     setDays(response.data)
@@ -39,9 +46,7 @@ export default function Application(props) {
       let appointments = appointmentsRes.data;
 
       setState((prevState) => ({...prevState, days, interviewers, appointments}))
-      // setDays(days);
-      // setAppointments(appointments);
-      // setInterviewers(interviewers);
+      // Recognize that this is a destructured object, that pushes in new data to the state object array.
     })
   }, [])
 
@@ -55,11 +60,14 @@ export default function Application(props) {
         />
         <hr className="sidebar__separator sidebar--centered" />
         <nav className="sidebar__menu">
+
+          {/* Makes the list for the day */}
           <DayList
             days={state.days}
             day={state.day}
             setDay={setDay}
           />
+
         </nav>
         <img
         className="sidebar__lhl sidebar--centered"
@@ -69,25 +77,12 @@ export default function Application(props) {
       </section>
       <section className="schedule">
 
-
+        {/* Calls the component to find all appointments for each day */}
         {getAppointmentsForDay(state, state.day).map(appointment => 
           <Appointment key={appointment.id} {...appointment} />
         )}
-
 
       </section>
     </main>
   );
 }
-
-// {
-//   props.days.map(day => 
-//     <DayListItem 
-//       key={day.id}
-//       name={day.name}
-//       spots={day.spots}
-//       selected={day.name === props.day}
-//       setDay={props.setDay} 
-//     />
-//   )
-// }
