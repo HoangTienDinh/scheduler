@@ -58,9 +58,6 @@ const appointments = [
 
 
 export default function Application(props) {
-  // const [day, setDay] = useState("Monday");
-  // const [days, setDays ] = useState([]);
-
   const [state, setState] = useState({
     day: "Monday",
     days: [],
@@ -78,6 +75,13 @@ export default function Application(props) {
   //     setDays(response.data)
   //   })
   // }, []);
+
+  Promise.all([state.day, state.days, state.appointments])
+  .then((all) => {
+   
+    setState(prev => ({ first}))
+    console.log(all)
+  })
 
   return (
     <main className="layout">
