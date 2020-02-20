@@ -41,3 +41,31 @@ export function getInterview(state, interview) {
   }
 
 }
+
+export function getInterviewersForDay(state, day) {
+  let appointmentArray = [];
+  let interviewersArray = [];
+  let result = [];
+
+  console.log(state.days)
+  // console.log(day)
+
+  for (const dayName of state.days) {
+    if (dayName.name === day) {
+      dayName.appointments.forEach(appointment => appointmentArray.push(appointment))
+      // console.log(appointmentArray)
+    }
+  }
+
+  appointmentArray.forEach( appointmentId => {
+    if (state.appointments[String(appointmentId)].interview){
+      interviewersArray.push(state.appointments[String(appointmentId)].interview.interviewer)
+    }
+  })
+
+  interviewersArray.forEach( interviewersId => {
+    result.push(state.interviewers[String(interviewersId)])
+  })
+
+  return result;
+}
