@@ -47,7 +47,7 @@ export function getInterviewersForDay(state, day) {
   let interviewersArray = [];
   let result = [];
 
-  console.log(state.days)
+  // console.log(state.days)
   // console.log(day)
 
   for (const dayName of state.days) {

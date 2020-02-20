@@ -3,9 +3,12 @@ import React, { useState, useEffect } from "react";
 import "components/Application.scss";
 import DayList from "./DayList";
 import Appointment from "components/Appointment/index";
-import { getAppointmentsForDay, getInterview} from "../helpers/selectors";
+import { getAppointmentsForDay, getInterview, getInterviewersForDay} from "../helpers/selectors";
 
 const axios = require('axios');
+
+
+
 
 export default function Application(props) {
   const [state, setState] = useState({
@@ -15,10 +18,20 @@ export default function Application(props) {
     interviewers: {}
   });
 
-  const appointments = getAppointmentsForDay(state, state.day)
+  const appointments = getAppointmentsForDay(state, state.day);
+  const interviewers = getInterviewersForDay(state, state.day);
 
+  // console.log('inside application.js for interviewers', interviewers)
+
+
+
+  // loads up the appointments card with all the appointment information
   const schedule = appointments.map((appointment) => {
     const interview = getInterview(state, appointment.interview);
+    
+    function bookInterview(id, interview) {
+      // console.log(id, interview);
+    }
   
     return (
       <Appointment
@@ -26,6 +39,8 @@ export default function Application(props) {
         id={appointment.id}
         time={appointment.time}
         interview={interview}
+        interviewers={state.interviewers}
+        bookInterview={bookInterview}
       />
     );
   });
