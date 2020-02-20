@@ -35,15 +35,21 @@ export default function Application(props) {
         ...state.appointments,
         [id]: appointment
       };
-  
+
+    return axios.put(`/api/appointments/${id}`, appointment)
+    .then(() => {
       setState({
         ...state,
         appointments
       });
-
-    axios.put(`/api/appointments/${id}`, appointment)
-
+    })
   }
+
+  const cancelInterview = (id) => {
+
+    console.log('here is id', id)
+    return axios.delete(`/api/appointments/${id}`)
+  };
 
     return (
       <Appointment
@@ -53,6 +59,7 @@ export default function Application(props) {
         interview={interview}
         interviewers={interviewers}
         bookInterview={bookInterview}
+        cancelInterview={cancelInterview}
       />
     );
   });

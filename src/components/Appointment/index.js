@@ -5,25 +5,22 @@ import "./styles.scss";
 import Header from "./Header";
 import Show from "./Show";
 import Empty from "./Empty";
-import Form from "./Form"
+import Form from "./Form";
+import Status from "./Status";
 
 import useVisualMode from "../../hooks/useVisualMode";
-
-const axios = require('axios');
 
 export default function Appointment(props) {
 
   const EMPTY = "EMPTY";
   const SHOW = "SHOW";
   const CREATE = "CREATE";
-  const ON_SAVE = "SAVE";
+  const SAVING = "SAVING";
+  const DELETE = "DELETE";
 
   // console.log(props.interviewers)
 
-  const { id, time, interview, interviewers, bookInterview } = props
-  console.log(id, interview)
-
-
+  const { id, time, interview, interviewers, bookInterview, cancelInterview } = props
 
   const { mode, transition, back } = useVisualMode(
     interview ? SHOW : EMPTY
@@ -34,20 +31,19 @@ export default function Appointment(props) {
       student: name,
       interviewer
     }; 
+    
+    transition(SAVING)
 
     bookInterview(id, interview)
+    .then(() => transition(SHOW))
 
+  }
 
-    axios.put(`/api/appointments/${id}`, {
-      id: {id},
-      time: {time},
-      interview: {name: {name}, interviewer: {interviewer}}
-    })
-    .then((res) => {console.log('hey res', res)})
-    .catch((err) => console.log('hey err', err))
+  function deleteInterview() {
+    transition(DELETE)
 
-
-    transition(SHOW)
+    cancelInterview(id)
+    .then(() => transition(EMPTY))
   }
 
   // console.log("appointment props:", props)
@@ -56,13 +52,17 @@ export default function Appointment(props) {
     <article className="appointment">
       <Header time={time} />
 
-      {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
+      {mode === EMPTY && 
+      <Empty 
+        onAdd={() => transition(CREATE)} 
+      />}
+      
       {mode === SHOW && 
-        <Show
-          student={interview.student}
-          interviewer={interview.interviewer}
-        />
-      }
+      <Show
+        student={interview.student}
+        interviewer={interview.interviewer}
+        onDelete={deleteInterview}
+      />}
       
       {mode === CREATE && 
       <Form 
@@ -70,6 +70,16 @@ export default function Appointment(props) {
         interviewers={interviewers}
         onSave={save}
         onCancel={back}
+      />}
+
+      {mode === SAVING &&
+      <Status
+        message="Saving"
+      />}
+
+      {mode === DELETE &&
+      <Status 
+        message="Deleting"
       />}
         
 
