@@ -34,7 +34,7 @@ export function getInterview(state, interview) {
 
         finalObj = { student, interviewer }
 
-        console.log('the finalObj:', finalObj)
+        // console.log('the finalObj:', finalObj)
         return finalObj;
       }
     }
