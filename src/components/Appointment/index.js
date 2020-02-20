@@ -9,12 +9,14 @@ import Form from "./Form"
 
 import useVisualMode from "../../hooks/useVisualMode";
 
+const axios = require('axios');
 
 export default function Appointment(props) {
 
   const EMPTY = "EMPTY";
   const SHOW = "SHOW";
   const CREATE = "CREATE";
+  const ON_SAVE = "SAVE";
 
   // console.log(props.interviewers)
 
@@ -31,14 +33,21 @@ export default function Appointment(props) {
     const interview = {
       student: name,
       interviewer
+    }; 
 
-    };
-
-    console.log(id, interview)
     bookInterview(id, interview)
 
-    return interview
 
+    axios.put("/api/appointments/:id", {
+      id: {id},
+      time: {time},
+      interview: {name: {name}, interviewer: {interviewer}}
+    })
+    .then((res) => {console.log('hey res', res)})
+    .catch((err) => console.log('hey err', err))
+
+
+    transition(SHOW)
   }
 
   // console.log("appointment props:", props)
@@ -48,23 +57,22 @@ export default function Appointment(props) {
       <Header time={time} />
 
       {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
-      {mode === SHOW && (
+      {mode === SHOW && 
         <Show
           student={interview.student}
           interviewer={interview.interviewer}
         />
-      )}
+      }
       
       {mode === CREATE && 
       <Form 
         key={id}
         interviewers={interviewers}
-
         onSave={save}
         onCancel={back}
+      />}
         
-        
-        />}
+
 
 
     </article>

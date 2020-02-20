@@ -32,8 +32,14 @@ export default function Form(props) {
       return;
     }
 
+    if (!interviewer) {
+      setError("Please set an interviewer")
+      return;
+    }
+
     setError("");
     onSave(name, interviewer);
+    // console.log("inside the validate function", onSave(name, interviewer))
   }
 
   return (
