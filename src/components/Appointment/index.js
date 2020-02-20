@@ -38,7 +38,7 @@ export default function Appointment(props) {
     bookInterview(id, interview)
 
 
-    axios.put("/api/appointments/:id", {
+    axios.put(`/api/appointments/${id}`, {
       id: {id},
       time: {time},
       interview: {name: {name}, interviewer: {interviewer}}

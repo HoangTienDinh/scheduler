@@ -41,9 +41,9 @@ export default function Application(props) {
         appointments
       });
 
+    axios.put(`/api/appointments/${id}`, appointment)
 
-      
-    }
+  }
 
     return (
       <Appointment
