@@ -19,6 +19,8 @@ export default function Appointment(props) {
   // console.log(props.interviewers)
 
   const { id, time, interview, interviewers, bookInterview } = props
+  console.log(id, interview)
+
 
 
   const { mode, transition, back } = useVisualMode(
@@ -32,8 +34,7 @@ export default function Appointment(props) {
 
     };
 
-
-    // console.log(interview)
+    console.log(id, interview)
     bookInterview(id, interview)
 
     return interview

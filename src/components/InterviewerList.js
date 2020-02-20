@@ -5,11 +5,6 @@ import InterviewerListItem from "./InterviewerListItem"
 export default function InterviewerList(props) {
 
   // console.log('inside the InterviewerList:', props)
-  const interviewers = []
-
-  for (const interviewerId in props.interviewers) {
-    interviewers.push(props.interviewers[interviewerId])
-  }
 
   return (
     <section className="interviewers">
@@ -17,7 +12,7 @@ export default function InterviewerList(props) {
       <ul className="interviewers__list">
         {
 
-          interviewers.map(interviewer => 
+          props.interviewers.map(interviewer => 
             <InterviewerListItem 
               key={interviewer.id}
               name={interviewer.name}

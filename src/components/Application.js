@@ -9,7 +9,6 @@ const axios = require('axios');
 
 
 
-
 export default function Application(props) {
   const [state, setState] = useState({
     day: "Monday",
@@ -21,25 +20,37 @@ export default function Application(props) {
   const appointments = getAppointmentsForDay(state, state.day);
   const interviewers = getInterviewersForDay(state, state.day);
 
-  // console.log('inside application.js for interviewers', interviewers)
-
-
-
   // loads up the appointments card with all the appointment information
   const schedule = appointments.map((appointment) => {
     const interview = getInterview(state, appointment.interview);
     
     function bookInterview(id, interview) {
-      // console.log(id, interview);
-    }
+      console.log(id, interview);
+      const appointment = {
+        ...state.appointments[id],
+        interview: { ...interview }
+      };
+
+      const appointments = {
+        ...state.appointments,
+        [id]: appointment
+      };
   
+      setState({
+        ...state,
+        appointments
+      });
+
+      
+    }
+
     return (
       <Appointment
         key={appointment.id}
         id={appointment.id}
         time={appointment.time}
         interview={interview}
-        interviewers={state.interviewers}
+        interviewers={interviewers}
         bookInterview={bookInterview}
       />
     );
