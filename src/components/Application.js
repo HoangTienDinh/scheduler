@@ -13,7 +13,6 @@ export default function Application(props) {
     bookInterview, 
     cancelInterview 
   } = useApplicationData();
-  console.log('here is state', state)
 
   const appointments = getAppointmentsForDay(state, state.day);
   const interviewers = getInterviewersForDay(state, state.day);
@@ -51,6 +50,9 @@ export default function Application(props) {
   //     setDays(response.data)
   //   })
   // }, []);
+
+
+  console.log('inside application', state)
 
   return (
     <main className="layout">
