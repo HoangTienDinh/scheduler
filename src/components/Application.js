@@ -51,9 +51,6 @@ export default function Application(props) {
   //   })
   // }, []);
 
-
-  console.log('inside application', state)
-
   return (
     <main className="layout">
       <section className="sidebar">

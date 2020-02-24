@@ -56,21 +56,5 @@ export function getInterviewersForDay(state, day) {
     result.push(state.interviewers[String(interviewersId)])
   })
 
-  // for (const dayName of state.days) {
-  //   if (dayName.name === day) {
-  //     dayName.appointments.forEach(appointment => appointmentArray.push(appointment))
-  //   }
-  // }
-
-  // appointmentArray.forEach( appointmentId => {
-  //   if (state.appointments[String(appointmentId)].interview){
-  //     interviewersArray.push(state.appointments[String(appointmentId)].interview.interviewer)
-  //   }
-  // })
-
-  // interviewersArray.forEach( interviewersId => {
-  //   result.push(state.interviewers[String(interviewersId)])
-  // })
-
   return result;
 }
