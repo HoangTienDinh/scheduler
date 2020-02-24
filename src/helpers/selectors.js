@@ -47,7 +47,7 @@ export function getInterviewersForDay(state, day) {
   let result = [];
 
   for (const dayName of state.days) {
-    if (dayName.name === day) {
+    if (dayName.name === day && dayName.interviewers) {
       dayName.interviewers.forEach(interviewers => interviewersArray.push(interviewers))
     }
   }

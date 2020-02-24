@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 export default function InterviewerList(props) {
 
-  console.log('inside the InterviewerList:', props)
+  // console.log('inside the InterviewerList:', props)
   
   return (
     <section className="interviewers">
