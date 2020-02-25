@@ -82,7 +82,15 @@ export default {
       });
       /* Resolve interviewers data */
     }
-    
-  })
 
-}
+  }),
+
+  put: jest.fn(url => {
+    return Promise.resolve({
+      status: 204,
+      statusText: "No Content",
+      data: fixtures.days
+    });
+  })
+  
+};
