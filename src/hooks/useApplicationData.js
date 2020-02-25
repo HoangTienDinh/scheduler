@@ -1,6 +1,8 @@
 import { useEffect, useReducer } from "react";
 
-const axios = require("axios");
+// const axios = require("axios");
+
+import axios from "axios"
 
 const SET_DAY = "SET_DAY";
 const SET_APPLICATION_DATA = "SET_APPLICATION_DATA";
@@ -31,11 +33,10 @@ function reducer(state, action) {
     //   }
 
     case SET_INTERVIEW: {
-      console.log('inside set interview:', action)
+      console.log("inside set interview:", action);
       const spotId = action.value.id;
       const setSpots = spots => {
         if (action.value.interview) {
-
           return state.appointments[spotId].interview ? spots : spots - 1;
         } else {
           return spots + 1;
