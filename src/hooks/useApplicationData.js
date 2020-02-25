@@ -33,7 +33,7 @@ function reducer(state, action) {
     //   }
 
     case SET_INTERVIEW: {
-      console.log("inside set interview:", action);
+      // console.log("inside set interview:", action);
       const spotId = action.value.id;
       const setSpots = spots => {
         if (action.value.interview) {

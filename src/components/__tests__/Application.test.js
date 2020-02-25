@@ -1,6 +1,6 @@
 import React from "react";
 
-import { render, cleanup, waitForElement, fireEvent, prettyDOM, getByText, getAllByTestId, getByPlaceholderText, getByAltText } from "@testing-library/react";
+import { render, cleanup, waitForElement, fireEvent, prettyDOM, getByText, getAllByTestId, getByPlaceholderText, getByAltText, queryByText } from "@testing-library/react";
 
 import Application from "components/Application.js";
 
@@ -45,11 +45,10 @@ describe("Application", () => {
   });
 
   it("loads data, books an interview and reduces the spots remaining for the first day by 1", async () => {
-    const { container } = render(<Application />);
+    const { container, debug } = render(<Application />);
     await waitForElement(() => getByText(container, "Archie Cohen"));
-    // console.log(prettyDOM(container));
+
     const appointments = getAllByTestId(container, "appointment");
-    // console.log(prettyDOM(appointments))
     const appointment = appointments[0];
 
     fireEvent.click(getByAltText(appointment, "Add"));
@@ -57,11 +56,28 @@ describe("Application", () => {
     fireEvent.change(getByPlaceholderText(appointment, /enter student name/i), {
       target: { value: "Lydia Miller-Jones" }
     });
+
     fireEvent.click(getByAltText(appointment, "Sylvia Palmer"));
 
     fireEvent.click(getByText(appointment, "Save"));
-    console.log(prettyDOM(appointment))
+    // console.log(prettyDOM(appointment))
 
+    // console.log(debug(appointment))
+
+    expect(getByText(appointment, "Saving")).toBeInTheDocument();
+
+    //WHY DOES THE ORDER MATTER HERE?!
+    await waitForElement(() => queryByText(appointment, "Lydia Miller-Jones"));
+    // console.log(debug(appointment))
+
+    const day = getAllByTestId(container, "day").find(day =>
+      queryByText(day, "Monday")
+      );
+
+    // console.log(prettyDOM(day));
+
+
+    expect(getByText(day, "no spots remaining")).toBeInTheDocument();
 
 
 
