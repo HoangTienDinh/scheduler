@@ -205,9 +205,7 @@ describe("Application", () => {
     expect(getByText(appointment, "Saving")).toBeInTheDocument();
 
     // 8. An error should be rendered.
-    await waitForElement(() =>
-      queryByText(appointment, "Error")
-    );
+    await waitForElement(() => queryByText(appointment, "Error"));
     // debug();
   });
 
@@ -218,29 +216,28 @@ describe("Application", () => {
     const { container, debug } = render(<Application />);
 
     // 2. Wait until the text "Archie Cohen" is displayed.
-    await waitForElement(() => getByText(container, 'Archie Cohen'));
+    await waitForElement(() => getByText(container, "Archie Cohen"));
 
     // 3. Click the "Delete" button on the booked appointment.
-    const appointment = getAllByTestId(container, 'appointment').find(
-      appointment => queryByText(appointment, 'Archie Cohen')
-    );
+    const appointment = getAllByTestId(
+      container,
+      "appointment"
+    ).find(appointment => queryByText(appointment, "Archie Cohen"));
 
-    fireEvent.click(queryByAltText(appointment, 'Delete'));
+    fireEvent.click(queryByAltText(appointment, "Delete"));
 
     // 4. Check that the confirmation message is shown.
     expect(
-      getByText(appointment, 'Delete the appointment?')
+      getByText(appointment, "Delete the appointment?")
     ).toBeInTheDocument();
 
     // 5. Click the "Confirm" button on the confirmation.
-    fireEvent.click(getByText(appointment, 'Confirm'));
+    fireEvent.click(getByText(appointment, "Confirm"));
 
     // 6. Check that the element with the text "Deleting" is displayed.
-    expect(getByText(appointment, 'Deleting')).toBeInTheDocument();
+    expect(getByText(appointment, "Deleting")).toBeInTheDocument();
 
     // 7. An error should be rendered.
-    await waitForElement(() =>
-      getByText(appointment, 'Error')
-    );
+    await waitForElement(() => getByText(appointment, "Error"));
   });
 });
