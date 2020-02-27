@@ -28,4 +28,4 @@
 ## Gif
 The gif displays the initial app on load, with database connected.  Going through creating an appointment, setting interviewers, editing appointments, deleting appointments, and filtering through the days of the week.
 
-!["Screenshot of Main page"](https://github.com/HoHoHoang/tweeter/blob/master/images/Main-Page.png)
+!["Gif demo for Scheduler"](https://github.com/HoangTienDinh/scheduler/blob/master/Gif/InterviewScheduler.gif)
