@@ -1,3 +1,5 @@
+// Mock data for testing with jest
+
 const fixtures = {
   days: [
     {

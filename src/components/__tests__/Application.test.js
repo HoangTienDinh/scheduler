@@ -5,7 +5,6 @@ import {
   cleanup,
   waitForElement,
   fireEvent,
-  prettyDOM,
   getByText,
   getAllByTestId,
   getByPlaceholderText,
@@ -17,8 +16,6 @@ import {
 import axios from "axios";
 
 import Application from "components/Application.js";
-
-// import "../../__mocks__/axios";
 
 afterEach(cleanup);
 
@@ -55,7 +52,7 @@ describe("Application", () => {
   });
 
   it("loads data, books an interview and reduces the spots remaining for the first day by 1", async () => {
-    const { container, debug } = render(<Application />);
+    const { container } = render(<Application />);
     await waitForElement(() => getByText(container, "Archie Cohen"));
 
     const appointments = getAllByTestId(container, "appointment");
@@ -70,28 +67,21 @@ describe("Application", () => {
     fireEvent.click(getByAltText(appointment, "Sylvia Palmer"));
 
     fireEvent.click(getByText(appointment, "Save"));
-    // console.log(prettyDOM(appointment))
-
-    // console.log(debug(appointment))
 
     expect(getByText(appointment, "Saving")).toBeInTheDocument();
 
-    //WHY DOES THE ORDER MATTER HERE?!
     await waitForElement(() => queryByText(appointment, "Lydia Miller-Jones"));
-    // console.log(debug(appointment))
 
     const day = getAllByTestId(container, "day").find(day =>
       queryByText(day, "Monday")
     );
-
-    // console.log(prettyDOM(day));
 
     expect(getByText(day, "no spots remaining")).toBeInTheDocument();
   });
 
   it("loads data, cancels an interview and increases the spots remaining for Monday by 1", async () => {
     // 1. Render the Application.
-    const { container, debug } = render(<Application />);
+    const { container } = render(<Application />);
 
     // 2. Wait until the text "Archie Cohen" is displayed.
     await waitForElement(() => getByText(container, "Archie Cohen"));
@@ -124,13 +114,11 @@ describe("Application", () => {
     );
 
     expect(getByText(day, "2 spots remaining")).toBeInTheDocument();
-
-    // debug();
   });
 
   it("loads data, edits an interview and keeps the spots remaining for Monday the same", async () => {
     // 1. Render the Application.
-    const { container, debug } = render(<Application />);
+    const { container } = render(<Application />);
     // 2. Wait until the text "Archie Cohen" is displayed.
     await waitForElement(() => getByText(container, "Archie Cohen"));
 
@@ -171,15 +159,13 @@ describe("Application", () => {
     );
 
     expect(getByText(day, "1 spot remaining")).toBeInTheDocument();
-
-    //  debug();
   });
 
   it("shows the save error when failing to save an appointment", async () => {
     axios.put.mockRejectedValueOnce();
 
     // 1. Render the Application.
-    const { container, debug } = render(<Application />);
+    const { container } = render(<Application />);
 
     // 2. Wait until the text "Archie Cohen" is displayed.
     await waitForElement(() => getByText(container, "Archie Cohen"));
@@ -206,14 +192,13 @@ describe("Application", () => {
 
     // 8. An error should be rendered.
     await waitForElement(() => queryByText(appointment, "Error"));
-    // debug();
   });
 
   it("shows the delete error when failing to delete an existing appointment", async () => {
     axios.delete.mockRejectedValueOnce();
 
     // 1. Render the Application.
-    const { container, debug } = render(<Application />);
+    const { container } = render(<Application />);
 
     // 2. Wait until the text "Archie Cohen" is displayed.
     await waitForElement(() => getByText(container, "Archie Cohen"));

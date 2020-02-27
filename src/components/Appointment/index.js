@@ -12,8 +12,9 @@ import Error from "./Error";
 
 import useVisualMode from "../../hooks/useVisualMode";
 
+// Shows the appointment, and allows transitions pending on user interface
 export default function Appointment(props) {
-
+  // Mode transitions to display the correct UI
   const EMPTY = "EMPTY";
   const SHOW = "SHOW";
   const CREATE = "CREATE";
@@ -23,101 +24,84 @@ export default function Appointment(props) {
   const EDIT = "EDIT";
   const ERROR_SAVE = "ERROR_SAVE";
   const ERROR_DELETE = "ERROR_DELETE";
-  
-  
-  // console.log(props.interviewers)
 
-  const { id, time, interview, interviewers, bookInterview, cancelInterview } = props
+  const {
+    id,
+    time,
+    interview,
+    interviewers,
+    bookInterview,
+    cancelInterview
+  } = props;
 
-  const { mode, transition, back } = useVisualMode(
-    interview ? SHOW : EMPTY
-  );
+  const { mode, transition, back } = useVisualMode(interview ? SHOW : EMPTY);
 
   function save(name, interviewer) {
     const interview = {
       student: name,
       interviewer
-    }; 
-    transition(SAVING, true)
+    };
+    transition(SAVING, true);
 
     bookInterview(id, interview)
-    .then(() => transition(SHOW))
-    .catch(() => transition(ERROR_SAVE, true))
+      .then(() => transition(SHOW))
+      .catch(() => transition(ERROR_SAVE, true));
   }
 
   function deleteInterview() {
-    transition(DELETE, true)
+    transition(DELETE, true);
 
     cancelInterview(id)
-    .then(() => transition(EMPTY))
-    .catch(() => transition(ERROR_DELETE, true))
+      .then(() => transition(EMPTY))
+      .catch(() => transition(ERROR_DELETE, true));
   }
 
-    return (
-    <article 
-      className="appointment" 
-      data-testid="appointment"
-    >
+  return (
+    <article className="appointment" data-testid="appointment">
       <Header time={time} />
 
-      {mode === EMPTY && 
-      <Empty 
-        onAdd={() => transition(CREATE)} 
-      />}
-      
-      {mode === SHOW && 
-      <Show
-        student={interview.student}
-        interviewer={interview.interviewer}
-        onDelete={() => transition(CONFIRM)}
-        onEdit={() => transition(EDIT)}
-      />}
-      
-      {mode === CREATE && 
-      <Form 
-        key={id}
-        interviewers={interviewers}
-        onSave={save}
-        onCancel={back}
-      />}
+      {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
 
-      {mode === SAVING &&
-      <Status
-        message="Saving"
-      />}
+      {mode === SHOW && (
+        <Show
+          student={interview.student}
+          interviewer={interview.interviewer}
+          onDelete={() => transition(CONFIRM)}
+          onEdit={() => transition(EDIT)}
+        />
+      )}
 
-      {mode === DELETE &&
-      <Status 
-        message="Deleting"
-      />}
+      {mode === CREATE && (
+        <Form
+          key={id}
+          interviewers={interviewers}
+          onSave={save}
+          onCancel={back}
+        />
+      )}
 
-      {mode === CONFIRM &&
-      <Confirm 
-        onCancel={back}
-        onConfirm={deleteInterview}
-      />}
+      {mode === SAVING && <Status message="Saving" />}
 
-      {mode === EDIT &&
-      <Form
-        key={id}
-        name={interview.student}
-        interviewer={interview.interviewer.id}
-        interviewers={interviewers}
-        onSave={save}
-        onCancel={back}
-      />}
+      {mode === DELETE && <Status message="Deleting" />}
 
-      {mode === ERROR_SAVE &&
-      <Error 
-        onClose={back}
-      />}
+      {mode === CONFIRM && (
+        <Confirm onCancel={back} onConfirm={deleteInterview} />
+      )}
 
-      {mode === ERROR_DELETE &&
-      <Error 
-        onClose={back}
-      />}
-        
+      {mode === EDIT && (
+        <Form
+          key={id}
+          name={interview.student}
+          interviewer={interview.interviewer.id}
+          interviewers={interviewers}
+          onSave={save}
+          onCancel={back}
+        />
+      )}
 
+      {mode === ERROR_SAVE && <Error onClose={back} />}
+
+      {mode === ERROR_DELETE && <Error onClose={back} />}
     </article>
   );
 }

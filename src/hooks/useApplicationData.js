@@ -7,7 +7,6 @@ import {
   SET_INTERVIEW
 } from "reducers/application";
 
-// const axios = require("axios");
 import axios from "axios";
 
 export default function useApplicationData() {
@@ -20,8 +19,10 @@ export default function useApplicationData() {
 
   const [state, dispatch] = useReducer(reducer, initialState);
 
+  // Sets the day in the scheduler
   const setDay = day => dispatch({ type: SET_DAY, value: day });
 
+  // Cancels the selected interview and opens up the appointment slot
   const cancelInterview = id => {
     return axios.delete(`/api/appointments/${id}`).then(() => {
       dispatch({
@@ -31,6 +32,7 @@ export default function useApplicationData() {
     });
   };
 
+  // Books an interview on an available slot, given a name and interviewer
   function bookInterview(id, interview) {
     const appointment = {
       ...state.appointments[id],
@@ -42,18 +44,12 @@ export default function useApplicationData() {
       [id]: appointment
     };
 
-    // const setSpots = {
-    //   ...state.appointments[id],
-
-    // }
-
-    // console.log(id);
-
     return axios.put(`/api/appointments/${id}`, appointment).then(() => {
       dispatch({ type: SET_INTERVIEW, value: { appointments, id, interview } });
     });
   }
 
+  // Axios collects the database on the server endpoints and sets the data with reducer
   useEffect(() => {
     Promise.all([
       axios.get("/api/days"),

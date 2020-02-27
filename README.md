@@ -1,23 +1,31 @@
 # Interview Scheduler
 
-## Setup
 
-Install dependencies with `npm install`.
+## Getting Started
+1. Fork this repository, then clone your for this repository.
+2. Install dependencies with `npm install`.
+3. Run Webpack Development Server `npm start`.
+4. Run Jest Test Framework `npm test`.
+5. Run Storybook Visual Test `npm run storybook`.
+6. Go to <http://localhost:8000/> to run app in browser
 
-## Running Webpack Development Server
+## Dependencies
+- Axios
+- Classnames
+- Normalize.css
+- React
+- React-dom
+- React-scripts
 
-```sh
-npm start
-```
+## Dev Dependencies
+- Babel/core
+- Storybook
+- Jest
+- Testing-library
+- Cypress
+- Node-Sass
 
-## Running Jest Test Framework
+## Gif
+The gif displays the initial app on load, with database connected.  Going through creating an appointment, setting interviewers, editing appointments, deleting appointments, and filtering through the days of the week.
 
-```sh
-npm test
-```
-
-## Running Storybook Visual Testbed
-
-```sh
-npm run storybook
-```
+!["Screenshot of Main page"](https://github.com/HoHoHoang/tweeter/blob/master/images/Main-Page.png)

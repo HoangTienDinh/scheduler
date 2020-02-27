@@ -3,14 +3,13 @@ import React, { useState } from "react";
 import InterviewerList from "components/InterviewerList";
 import Button from "components/Button";
 
+// Setting an interviewer and interviewee name, with valid inputs
 export default function Form(props) {
   const [name, setName] = useState(props.name || "");
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
   const [error, setError] = useState("");
 
   const { interviewers, onCancel, onSave } = props;
-
-  // console.log('the form props:', onSave)
 
   const reset = () => {
     setName("");
@@ -36,7 +35,6 @@ export default function Form(props) {
 
     setError("");
     onSave(name, interviewer);
-    // console.log("inside the validate function", onSave(name, interviewer))
   };
 
   return (
@@ -51,10 +49,6 @@ export default function Form(props) {
             placeholder="Enter Student Name"
             onChange={event => setName(event.target.value)}
             data-testid="student-name-input"
-
-            /*
-              This must be a controlled component
-            */
           />
         </form>
 

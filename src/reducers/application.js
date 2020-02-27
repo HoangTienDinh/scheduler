@@ -2,9 +2,9 @@ export const SET_DAY = "SET_DAY";
 export const SET_APPLICATION_DATA = "SET_APPLICATION_DATA";
 export const SET_INTERVIEW = "SET_INTERVIEW";
 
+// reducer function runs inside useApplicationData
+// pending on the action the switch will start a case
 export function reducer(state, action) {
-  // console.log(state, action);
-
   switch (action.type) {
     case SET_DAY:
       return {
@@ -20,14 +20,7 @@ export function reducer(state, action) {
         appointments: action.value.appointments
       };
 
-    // case SET_INTERVIEW:
-    //   return {
-    //     ...state,
-    //     appointments: action.value.appointments,
-    //   }
-
     case SET_INTERVIEW: {
-      // console.log("inside set interview:", action);
       const spotId = action.value.id;
       const setSpots = spots => {
         if (action.value.interview) {

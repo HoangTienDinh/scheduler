@@ -1,5 +1,6 @@
 import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "helpers/selectors";
 
+// Mock data for testing
 const state = {
   days: [
     {
@@ -43,6 +44,7 @@ const state = {
   }
 };
 
+// tests for user selections on the scheduler interface.  The day, appointment slot, name, and interviewer
 test("getAppointmentsForDay returns an array", () => {
   const result = getAppointmentsForDay(state, "Monday");
   expect(Array.isArray(result)).toBe(true);

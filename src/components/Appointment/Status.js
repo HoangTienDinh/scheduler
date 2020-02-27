@@ -1,6 +1,6 @@
 import React from "react";
 
-
+// Shows the user a transition card to let them know something is happening
 export default function Status(props) {
   return (
     <main className="appointment__card appointment__card--status">
@@ -11,5 +11,5 @@ export default function Status(props) {
       />
       <h1 className="text--semi-bold">{props.message}</h1>
     </main>
-  )
+  );
 }

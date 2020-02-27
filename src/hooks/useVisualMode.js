@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+// function allows for navigating through the page, pending on the mode that is set
 export default function useVisualMode(initial) {
   const [history, setHistory] = useState([initial]);
 

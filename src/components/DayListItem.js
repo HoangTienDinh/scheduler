@@ -1,40 +1,38 @@
 import React from "react";
 import "components/DayListItem.scss";
 
-const classNames = require('classnames');
+const classNames = require("classnames");
 
-const FormatSpots = ((props) => {
-
+// Displays different text pending on the number of appointment spots remaining for the day
+const FormatSpots = props => {
   const { spots } = props;
 
   if (spots === 1) {
-    return <h3 className="text--light">{spots} spot remaining</h3>
+    return <h3 className="text--light">{spots} spot remaining</h3>;
   }
 
   if (spots === 0) {
-    return <h3 className="text--light">no spots remaining</h3>
+    return <h3 className="text--light">no spots remaining</h3>;
   }
 
-  return <h3 className="text--light">{spots} spots remaining</h3>
+  return <h3 className="text--light">{spots} spots remaining</h3>;
+};
 
-})
-
-
+// Displays the appropriate information in the sidebar for each day
 export default function DayListItem(props) {
   const { selected, spots, name, setDay } = props;
 
   const dayClass = classNames("day-list__item", {
     "day-list__item--selected": selected,
     "day-list__item--full": spots === 0
-  })
+  });
   return (
     <li className={dayClass} onClick={() => setDay(name)} data-testid="day">
       <h2 className="text--regular">{name}</h2>
-      <FormatSpots spots = {spots}/>
+      <FormatSpots spots={spots} />
     </li>
   );
 }
-
 
 // USING TERNARY OPERATOR
 // export default function DayListItem(props) {
